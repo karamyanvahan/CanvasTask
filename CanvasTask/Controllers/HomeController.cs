@@ -25,26 +25,8 @@ namespace CanvasTask.Controllers
         }
 
         [HttpPost]
-        public StatusCodeResult Save([FromBody]string imageData)
-        {
-            //string storagePath = configuration.GetValue<string>("ImageStorage");
-
-            //List<string> images;
-
-            //using (StreamReader sr = new StreamReader(storagePath))
-            //{
-            //    images = JsonConvert.DeserializeObject<List<string>>(sr.ReadToEnd());
-            //}
-
-            //images.Insert(0, imageData);
-
-            //using (StreamWriter sr = new StreamWriter(storagePath))
-            //{
-            //    sr.Write(JsonConvert.SerializeObject(images));
-            //}
-
-            //return StatusCode(200);
-
+        public string Save([FromBody]string imageData)
+        { 
             string imageListPath = configuration.GetValue<string>("imageList");
             string imageListString;
             string fileName = Path.GetRandomFileName() + ".png";
@@ -73,7 +55,7 @@ namespace CanvasTask.Controllers
                 sw.Write(JsonConvert.SerializeObject(imageList));
             }
 
-            return StatusCode(200);
+            return fileName;
         }
 
         public JsonResult getImages()

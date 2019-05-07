@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\karam\\source\\repos\\CanvasTask\\CanvasTask\\CanvasTask.csproj": {}
+    "C:\\Projects\\CanvasTask\\CanvasTask\\CanvasTask.csproj": {}
   },
   "projects": {
-    "C:\\Users\\karam\\source\\repos\\CanvasTask\\CanvasTask\\CanvasTask.csproj": {
+    "C:\\Projects\\CanvasTask\\CanvasTask\\CanvasTask.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\karam\\source\\repos\\CanvasTask\\CanvasTask\\CanvasTask.csproj",
+        "projectUniqueName": "C:\\Projects\\CanvasTask\\CanvasTask\\CanvasTask.csproj",
         "projectName": "CanvasTask",
-        "projectPath": "C:\\Users\\karam\\source\\repos\\CanvasTask\\CanvasTask\\CanvasTask.csproj",
+        "projectPath": "C:\\Projects\\CanvasTask\\CanvasTask\\CanvasTask.csproj",
         "packagesPath": "C:\\Users\\karam\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\karam\\source\\repos\\CanvasTask\\CanvasTask\\obj\\",
+        "outputPath": "C:\\Projects\\CanvasTask\\CanvasTask\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

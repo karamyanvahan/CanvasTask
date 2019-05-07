@@ -8,6 +8,9 @@ body {
   background-color: #fefefe;
   font-family: 'Roboto', sans-serif; }
 
+.container {
+  padding: 0 120px 0 20px; }
+
 canvas {
   pointer-events: none;
   display: block; }
@@ -17,18 +20,18 @@ canvas {
   border: 1px solid #e6e6e6;
   resize: both;
   overflow: hidden;
+  width: 100%;
   min-width: 200px;
   min-height: 200px;
+  max-width: 100%;
   background-color: #fff;
-  margin: 10px auto; }
+  margin: 0 auto; }
 
 #thumbnails {
   width: 100px;
   height: 100vh;
+  float: right;
   background-color: #fff;
-  position: fixed;
-  right: 0;
-  top: 0;
   overflow-y: scroll;
   padding: 0 10px;
   box-shadow: 0 0 5px #b1b1b1;
@@ -76,7 +79,9 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px; }
+  align-self: flex-start;
+  box-sizing: content-box;
+  padding: 5px 0 10px 0; }
 
 .button {
   font-size: 1.5em;
@@ -101,7 +106,6 @@ canvas {
     background-color: #1290cc; }
 
 #img {
-  max-width: 100%;
   background-color: #fff;
   position: absolute;
   top: 0;

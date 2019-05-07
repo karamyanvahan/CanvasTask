@@ -8,14 +8,14 @@
     imageViewer = document.getElementById('imageViewer'),
     imageViewerImg = document.getElementById('imageViewerImg'),
     closeButton = document.getElementById('closeButton'),
-    img = document.getElementById('img');
+    img = document.getElementById('img'),
+    buttons = document.getElementById('buttons');
+
+const imagesPath = 'images';
 
 let shape;
 
 showImages();
-
-let resizeObserver = new ResizeObserver(entries => { updateCanvas(entries); });
-resizeObserver.observe(canvasWrapper);
 
 saveButton.addEventListener('click', save);
 
@@ -23,8 +23,17 @@ loadButton.addEventListener('click', load);
 
 closeButton.addEventListener('click', closeViewer);
 
-imageViewerImg.style.maxHeight = canvasWrapper.style.maxHeight = window.innerHeight - document.getElementsByClassName('buttons')[0].offsetHeight - 30 + 'px';
-imageViewerImg.style.maxWidth = canvasWrapper.style.maxWidth = window.innerWidth - thumbnailList.offsetWidth - 140 + 'px';
+imageViewerImg.style.maxHeight = window.innerHeight - document.getElementsByClassName('buttons')[0].offsetHeight + 'px';
+canvasWrapper.style.height = window.innerHeight - buttons.offsetHeight - 20 + 'px';
+canvasWrapper.style.maxHeight = window.innerHeight - buttons.offsetHeight - 20 + 'px';
+img.style.maxWidth = window.innerWidth - thumbnailList.offsetWidth - 20 + 'px';
+
+let resizeObserver = new ResizeObserver(entries => { updateCanvas(entries); });
+resizeObserver.observe(canvasWrapper);
+
+window.addEventListener('resize', function () {
+    img.style.maxWidth = window.innerWidth - thumbnailList.offsetWidth - 20 + 'px';
+});
 
 class Shape {
     constructor(x, y, color) {
@@ -90,8 +99,6 @@ class Circle extends Shape {
     }
 }
 
-canvas.width = canvas.height = 700;
-
 async function getShape() {
     let res = await fetch(`/getShape/${canvas.width}/${canvas.height}`);
     let json = await res.json();
@@ -109,7 +116,6 @@ let initialState = {
 
 async function load() {
     shape = await getShape();
-    console.log(shape);
     shape.draw();
     initialState.shape = {};
     Object.assign(initialState.shape, shape);
@@ -145,8 +151,10 @@ async function save() {
         body: JSON.stringify(base64)
     });
 
+    let fileName = await response.text();
+
     if (response.ok)
-        addImage(image, true, true);
+        addImage(`${fileName}`, true);
 }
 
 
@@ -164,11 +172,12 @@ async function showImages() {
     }
 }
 
-function addImage(src, toStart, isBase64) {
+function addImage(fileName, toStart) {
     let img = document.createElement('div');
-    img.style.backgroundImage = !isBase64 ? `url(/images/${src})` : `url(${src})`;
+    fileName = `${imagesPath}/${fileName}`;
+    img.style.backgroundImage = `url(${fileName})`;
     img.classList.add('thumbnail');
-    img.dataset.image = src;
+    img.dataset.image = fileName;
     if (toStart) {
         thumbnailList.prepend(img);
     } else {

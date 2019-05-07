@@ -11,16 +11,17 @@
         <img id="imageViewerImg" />
         <i class="fas fa-times" id="closeButton"></i>
     </div>
-
-    <div class="buttons">
-        <div>
-            <button id="loadButton" class="button load">Load <i class="fas fa-arrow-down"></i></button>
-            <button id="saveButton" class="button save">Save <i class="fas fa-arrow-up"></i></button>
+    <div class="container">
+        <div class="buttons" id="buttons">
+            <div>
+                <button id="loadButton" class="button load">Load <i class="fas fa-arrow-down"></i></button>
+                <button id="saveButton" class="button save">Save <i class="fas fa-arrow-up"></i></button>
+            </div>
         </div>
-    </div>
-    <div id="canvasWrapper">
-        <img id="img" />
-        <canvas id="canvas"></canvas>
+        <div id="canvasWrapper">
+            <img id="img" />
+            <canvas id="canvas"></canvas>
+        </div>
     </div>
     <script src="~/scripts/jquery.min.js"></script>
     <script src="~/scripts/script.js" asp-append-version="true"></script>
