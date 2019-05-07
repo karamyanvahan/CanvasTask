@@ -1,0 +1,109 @@
+﻿@import url("../webfonts/Roboto-Regular.ttf");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+body {
+  background-color: #fefefe;
+  font-family: 'Roboto', sans-serif; }
+
+canvas {
+  pointer-events: none;
+  display: block; }
+
+#canvasWrapper {
+  position: relative;
+  border: 1px solid #e6e6e6;
+  resize: both;
+  overflow: hidden;
+  min-width: 200px;
+  min-height: 200px;
+  background-color: #fff;
+  margin: 10px auto; }
+
+#thumbnails {
+  width: 100px;
+  height: 100vh;
+  background-color: #fff;
+  position: fixed;
+  right: 0;
+  top: 0;
+  overflow-y: scroll;
+  padding: 0 10px;
+  box-shadow: 0 0 5px #b1b1b1;
+  z-index: 1; }
+  #thumbnails::-webkit-scrollbar {
+    width: 5px; }
+  #thumbnails::-webkit-scrollbar-thumb {
+    background-color: #1290cc; }
+
+.thumbnail {
+  height: 75px;
+  box-shadow: 0 0 5px #b1b1b1;
+  margin: 10px 0;
+  cursor: pointer;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat; }
+
+.thumbnail-selected {
+  border: 5px solid #1290cc; }
+
+#imageViewer {
+  background-color: rgba(0, 0, 0, 0.9);
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  display: none;
+  align-items: center;
+  justify-content: center; }
+
+#imageViewerImg {
+  background-color: #fff; }
+
+#closeButton {
+  position: absolute;
+  right: 150px;
+  top: 20px;
+  color: #fff;
+  font-size: 40px;
+  cursor: pointer; }
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px; }
+
+.button {
+  font-size: 1.5em;
+  padding: 10px 15px;
+  background-color: #1290cc;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: .2s; }
+  .button i {
+    margin-left: 5px; }
+  .button:focus {
+    outline: none; }
+  .button:disabled {
+    cursor: not-allowed;
+    opacity: .6; }
+  .button:hover {
+    background-color: #106c98; }
+  .button:disabled:hover {
+    background-color: #1290cc; }
+
+#img {
+  max-width: 100%;
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1; }
