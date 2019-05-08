@@ -35,6 +35,54 @@ window.addEventListener('resize', function () {
     img.style.maxWidth = window.innerWidth - thumbnailList.offsetWidth - 20 + 'px';
 });
 
+makeResizable(canvasWrapper);
+
+function makeResizable(el) {
+    let initialValues = {};
+    let mouseDown = false;
+    let resizeElement = document.createElement('div');
+
+    el.style.position = 'relative';
+
+    resizeElement.style.position = 'absolute';
+    resizeElement.style.bottom = '0';
+    resizeElement.style.right = '0';
+    resizeElement.style.width = '20px';
+    resizeElement.style.height = '20px';
+    resizeElement.style.backgroundImage = 'url("images/resize.png")';
+    resizeElement.style.backgroundSize = 'contain';
+    resizeElement.style.backgroundRepeat = 'no-repeat';
+    resizeElement.style.backgroundPosition = 'center';
+    resizeElement.style.cursor = 'nw-resize';
+
+    el.appendChild(resizeElement);
+
+    resizeElement.addEventListener('mousedown', function (e) {
+        mouseDown = true;
+        initialValues.width = el.offsetWidth;
+        initialValues.height = el.offsetHeight;
+        initialValues.x = e.x;
+        initialValues.y = e.y;
+        el.style.transition = 'width 0s, height 0s';
+    });
+
+    document.body.addEventListener('mouseup', function () {
+        mouseDown = false;
+    });
+
+    document.body.addEventListener('mousemove', function (e) {
+        if (mouseDown) {
+            el.style.width = initialValues.width + (e.x - initialValues.x) + 'px';
+            el.style.height = initialValues.height + (e.y - initialValues.y) + 'px';
+            console.log(initialValues.width + (e.x - initialValues.x) + 'px');
+        }
+    });
+
+    document.body.addEventListener('mouseleave', function () {
+        mouseDown = false;
+    });
+}
+
 class Shape {
     constructor(x, y, color) {
         this.x = x;
@@ -55,6 +103,14 @@ class Shape {
         this.y = initialState.shape.y * (canvas.height / initialState.canvasHeight);
     }
 }
+
+Shape.create = function (json) {
+    if (json.type === 'Circle') {
+        return new Circle(json.x, json.y, json.color, json.radius);
+    } else {
+        return new Rectangle(json.x, json.y, json.color, json.width, json.height);
+    }
+};
 
 class Rectangle extends Shape {
     constructor(x, y, color, width, height, type) {
@@ -102,11 +158,7 @@ class Circle extends Shape {
 async function getShape() {
     let res = await fetch(`/getShape/${canvas.width}/${canvas.height}`);
     let json = await res.json();
-    if (json.type === 'Circle') {
-        return new Circle(json.x, json.y, json.color, json.radius);
-    } else {
-        return new Rectangle(json.x, json.y, json.color, json.width, json.height);
-    }
+    return Shape.create(json);
 }
 
 let initialState = {
@@ -125,7 +177,6 @@ async function load() {
     img.style.display = 'none';
     if (selectedThumbnails[0])
         selectedThumbnails[0].classList.remove('thumbnail-selected');
-    canvasWrapper.style.resize = 'both';
     saveButton.disabled = false;
 }
 
@@ -201,7 +252,6 @@ function showImage(src) {
     img.style.display = 'block';
     canvasWrapper.style.width = img.offsetWidth + 'px';
     canvasWrapper.style.height = img.offsetHeight + 'px';
-    canvasWrapper.style.resize = 'none';
     saveButton.disabled = true;
 }
 
