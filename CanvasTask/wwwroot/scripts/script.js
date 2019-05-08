@@ -42,7 +42,9 @@ function makeResizable(el) {
     let mouseDown = false;
     let resizeElement = document.createElement('div');
 
-    el.style.position = 'relative';
+    if (window.getComputedStyle(el).position !== 'absolute') {
+        el.style.position = 'relative';
+    }
 
     resizeElement.style.position = 'absolute';
     resizeElement.style.bottom = '0';
